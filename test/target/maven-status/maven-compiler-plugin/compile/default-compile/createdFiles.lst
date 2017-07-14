@@ -1,0 +1,15 @@
+com\automic\ecc\testcase\RemoveActionTest.class
+com\automic\ecc\testcase\SmokeTest.class
+com\automic\ecc\testcase\ClonePackTest.class
+com\automic\ecc\testcase\ExportPackageTest.class
+com\automic\ecc\testdata\PackTestDataProvider.class
+com\automic\ecc\testdata\ActionTestDataProvider.class
+com\automic\ecc\testcase\ScaffoldActionTest.class
+com\automic\ecc\testcase\ActionTest.class
+com\automic\ecc\run\TestMain.class
+com\automic\ecc\testdata\ActionTestDataProvider$ActionTestData.class
+com\automic\ecc\testcase\CloneActionTest.class
+com\automic\ecc\testcase\ScaffoldPackageTest.class
+com\automic\ecc\testcase\TestSuite.class
+com\automic\ecc\testdata\ActionTestDataProvider$CloneActionTestData.class
+com\automic\ecc\testcase\PackTest.class

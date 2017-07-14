@@ -1,0 +1,5 @@
+scaffolding.package_version = 1.0.0
+scaffolding.package_company = Custom
+#scaffolding.package_dependencies = PCK.ITPA_SHARED ~> 1.1
+scaffolding.package_homepage = www.yourcompany.com
+scaffolding.package_title_prefix = CUSTOM_

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.uc4</groupId>
+		<artifactId>ecc-plugins-parent</artifactId>
+		<!-- Update after our sprint build release when it's ready, then trigger 
+			test -->
+		<!-- Update before final release (maybe suffix GA) when it's ready -->
+		<version>12.1.0-SNAPSHOT</version>
+	</parent>
+
+	<name>Action Builder</name>
+	<groupId>com.automic.apm.plugins</groupId>
+	<artifactId>webui-plugin-actionbuilder</artifactId>
+	<version>${version}</version>
+	<packaging>bundle</packaging>
+
+	<properties>
+		<version>3.0.0${build.sprint}</version>
+		<resource.encoding>UTF8</resource.encoding>
+		<ecc.bundletype>PLUGIN</ecc.bundletype>
+		<!-- SML -->
+		<ecc.translation.package>com.uc4.ecc.plugins.actionbuilder.i18n</ecc.translation.package>
+		<sml.java.classPrefix>ActionBuilder</sml.java.classPrefix>
+		<!-- dependencies -->
+		<java.version>1.8</java.version>
+		<apm-core.version>3.0.0${build.sprint}</apm-core.version>
+		<action-pack-commons.version>3.0.0${build.sprint}</action-pack-commons.version>
+		<!-- naming -->
+		<automic.product.name>Action.Builder</automic.product.name>
+		<automic.product.component>Plugin</automic.product.component>
+		<!-- Only remove -SNAPSHOT on release sprint when it's ready -->
+		<!-- Remove all on final release (maybe suffix GA) when it's ready -->
+		<build.sprint>-SNAPSHOT</build.sprint>
+		<build.number>nonumberset-local</build.number>
+		<build.identifier>-${build.number}</build.identifier>
+		<!-- build specific for staging -->
+		<skipDeploy>false</skipDeploy>
+		<stagingProfile>33393060f3a99d</stagingProfile>
+	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>com.automic.nexusvie-snapshot</id>
+			<name>Snapshots</name>
+			<url>https://nexusvie.automic.com/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>com.automic.nexusvie</id>
+			<name>Releases</name>
+			<url>https://nexusvie.automic.com/nexus/content/repositories/releases</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.5</version>
+					<extensions>true</extensions>
+					<configuration>
+						<!-- Do we want the parent to be deployed? -->
+						<skipNexusStagingDeployMojo>${skipDeploy}</skipNexusStagingDeployMojo>
+						<!-- The server "id" element from settings to use authentication from -->
+						<serverId>com.automic.nexusvie</serverId>
+						<!-- The Base URL of Nexus instance where we want to stage -->
+						<nexusUrl>https://nexusvie.automic.com/nexus</nexusUrl>
+						<stagingProfileId>${stagingProfile}</stagingProfileId>
+						<!-- do NOT auto release after close as we need to retrieve CLM base 
+							url as long the staged repo exists -->
+						<!-- explicit release step in build script required (outside of POM) -->
+						<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose> -->
+						<!-- staging will remain open to publish the full action pack bundle 
+							into the repository -->
+						<!-- beaware: staging repository needs to be closed within the buildsteps -->
+						<skipStagingRepositoryClose>true</skipStagingRepositoryClose>
+						<keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<Import-Package>
+							com.sun.xml.internal.ws.api.message;resolution:=optional,
+							com.sun.jdi;resolution:=optional,
+							com.sun.jdi.connect;resolution:=optional,
+							com.sun.jdi.event;resolution:=optional,
+							com.sun.jdi.request;resolution:=optional,
+							com.sun.tools.javac.processing;resolution:=optional,
+							com.sun.tools.javac.util;resolution:=optional,
+							com.jcraft.jzlib;resolution:=optional,
+							org.tukaani.xz;resolution:=optional,
+							org.apache.tools.ant;resolution:=optional,
+							org.apache.tools.ant.types;resolution:=optional,
+							org.eclipse.core.runtime;resolution:=optional,
+							org.eclipse.jdt.*;resolution:=optional,
+							data.com.uc4.ecc.plugins.actioncommon.*;resoultion:=optional,
+							*
+						</Import-Package>
+						<Export-Package>
+							!*
+						</Export-Package>
+						<_exportcontents>
+							!*
+						</_exportcontents>
+						<ECC-ConfigPath>${project.artifactId}</ECC-ConfigPath>
+						<Embed-Dependency>*;scope=compile</Embed-Dependency>
+					</instructions>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeTransitive>true</excludeTransitive>
+							<includeScope>runtime</includeScope>
+							<excludeScope>provided</excludeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<configuration>
+					<skipStagingRepositoryClose>false</skipStagingRepositoryClose>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildId} ${buildHash}</Implementation-Build>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+						<id>readAutomicVersion</id>
+						<!-- Check if all plugins have declared Ecc-BundleType: PLUGIN and 
+							have no exports -->
+						<configuration>
+							<propertyPrefix>parsedVersion</propertyPrefix>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-antrun-plugin</artifactId>
+	            <executions>
+	                <execution>
+	                    <phase>prepare-package</phase>
+	                    <goals>
+	                        <goal>run</goal>
+	                    </goals>
+	                    <configuration>
+	                        <target>
+	                        	<property name="_version" value="${parsedVersion.majorVersion}_${parsedVersion.minorVersion}_${parsedVersion.incrementalVersion}" />
+	                        	<condition property="automic.product.version" 
+	                        		value="${_version}+build.${build.number}" 
+	                        		else ="${_version}+${parsedVersion.qualifier}.build.${build.number}">
+									<matches string="${project.version}" pattern="SNAPSHOT$" />
+								</condition>
+								<echo message="Product.Version: ${automic.product.version}"/>
+	                        </target>
+	                        <exportAntProperties>true</exportAntProperties>
+	                    </configuration>
+	                </execution>
+	            </executions>
+	        </plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>zip-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<finalName>${automic.product.name}_${automic.product.component}_${automic.product.version}</finalName>
+							<descriptors>
+								<descriptor>src/main/assembly/dist.xml</descriptor>
+							</descriptors>
+							<attach>true</attach>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.uc4</groupId>
+			<artifactId>ecc-framework</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.uc4</groupId>
+			<artifactId>ecc-ae-commons</artifactId>
+			<scope>provided</scope>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.uc4</groupId>
+			<artifactId>ecc-processautomation-api</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.uc4</groupId>
+			<artifactId>ecc-backends-api</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.automic.apm</groupId>
+			<artifactId>apm-core</artifactId>
+			<version>${apm-core.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.automic.ae.api</groupId>
+					<artifactId>ae-java-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>aopalliance</artifactId>
+					<groupId>aopalliance</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>guice</artifactId>
+					<groupId>com.google.inject</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-io</artifactId>
+					<groupId>commons-io</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-lang3</artifactId>
+					<groupId>org.apache.commons</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>guava</artifactId>
+					<groupId>com.google.guava</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>groovy-all</artifactId>
+					<groupId>org.codehaus.groovy</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>javax.inject</artifactId>
+					<groupId>javax.inject</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>javax.inject</artifactId>
+					<groupId>javax.inject</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.automic.translation</groupId>
+					<artifactId>translation-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.automic.apm.plugins</groupId>
+			<artifactId>webui-action-pack-commons</artifactId>
+			<version>${action-pack-commons.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+</project>

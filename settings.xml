@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<mirrors>
+		<mirror>
+			<!--This sends everything else to /public -->
+			<id>nexus</id>
+			<mirrorOf>*,!com.automic.ecc.snapshots,!com.automic.ecc,!com.automic.snapshots,!com.automic.releases,!com.automic.aso
+			</mirrorOf>
+			<url>https://nexusvie.automic.com/nexus/content/groups/public</url>
+		</mirror>
+	</mirrors>
+	<profiles>
+		<profile>
+			<id>nexus</id>
+			<!--Enable snapshots for the built in central repo to direct -->
+			<!--all requests to nexus via the mirror -->
+			<repositories>
+				<!-- add the repos defined by distribution management as lookup for snapshot 
+					/ releases -->
+				<repository>
+					<id>com.automic.ecc.snapshots</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/com.automic.ecc.snapshots/
+					</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>com.automic.ecc</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/com.automic.ecc/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>com.automic.releases</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/releases/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>com.automic.snapshots</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/snapshots/
+					</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>com.automic.aso</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/com.automic.aso/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+
+			<pluginRepositories>
+				<!-- add the repos defined by distribution managament as lookup for plugins 
+					(needed for ara plugin) -->
+				<pluginRepository>
+					<id>com.automic.ecc.snapshots</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/com.automic.ecc.snapshots/
+					</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>com.automic.ecc</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/com.automic.ecc/
+					</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>com.automic.snapshots</id>
+					<url>https://nexusvie.automic.com/nexus/content/repositories/snapshots/
+					</url>
+				</pluginRepository>
+
+			</pluginRepositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<!--make the profile active all the time -->
+		<activeProfile>nexus</activeProfile>
+	</activeProfiles>
+</settings>

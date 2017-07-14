@@ -1,0 +1,183 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.automic.apm.plugins</groupId>
+	<artifactId>webui-plugin-actionbuilder-test</artifactId>
+	<version>${version}</version>
+	<!-- <packaging>jar</packaging> -->
+	<name>Action Builder Test</name>
+
+	<properties>
+		<version>2.0.2${build.sprint}</version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<final.name>webui-plugin-actionbuilder-test</final.name>
+		<ae-api.version>12.0.2${build.sprint}</ae-api.version>
+		<ecc-test.version>12.0.2${build.sprint}</ecc-test.version>
+		<automic.product.name>Action.Builder</automic.product.name>
+		<automic.product.component>Plugin.Test</automic.product.component>
+		<!-- Only remove -SNAPSHOT on release sprint when it's ready -->
+		<!-- Remove all on final release (maybe suffix GA) when it's ready -->
+		<build.sprint>-SNAPSHOT</build.sprint>
+		<build.number>nonumberset-local</build.number>
+		<build.identifier>-${build.number}</build.identifier>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.automic.apm.plugins</groupId>
+			<artifactId>webui-plugin-commons-test</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.uc4</groupId>
+			<artifactId>ecc-tests-integration</artifactId>
+			<version>${ecc-test.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.automic.ae.api</groupId>
+			<artifactId>ae-java-api</artifactId>
+			<version>${ae-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+		<dependency>
+			<groupId>org.uncommons</groupId>
+			<artifactId>reportng</artifactId>
+			<version>1.1.4</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${final.name}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+						<id>readAutomicVersion</id>
+						<!-- Check if all plugins have declared Ecc-BundleType: PLUGIN and
+							have no exports -->
+						<configuration>
+							<propertyPrefix>parsedVersion</propertyPrefix>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.automic.ecc.run.TestMain</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<addClasspath>true</addClasspath>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>dist</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<finalName>${automic.product.name}_${automic.product.component}_${parsedVersion.majorVersion}_${parsedVersion.minorVersion}_${parsedVersion.incrementalVersion}+build.${build.number}</finalName>
+							<descriptors>
+								<descriptor>${project.basedir}/src/main/assembly/zip.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy todir="${project.build.directory}">
+									<fileset dir="${basedir}/src/main/resources">
+										<patternset id="data">
+											<include name="config/*.properties" />
+											<include name="testdata/**/*" />
+										</patternset>
+									</fileset>
+									<fileset dir="${basedir}/src/main/resources/dev2pro">
+										<patternset id="docker">
+											<include name="Dockerfile" />
+											<include name="start_test.sh" />
+										</patternset>
+									</fileset>
+									<fileset dir="${basedir}">
+										<patternset id="readme">
+											<include name="README.md" />
+										</patternset>
+									</fileset>
+								</copy>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

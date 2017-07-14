@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.automic.apm.plugins</groupId>
+	<artifactId>action-builder-reactor</artifactId>
+	<version>0.0.0</version>
+	<packaging>pom</packaging>
+	<name>Action Builder Reactor</name>
+	<description>
+    	Reactor pom, only use to define sub-modules, must not be deployed
+    </description>
+
+	<modules>
+		<module>develop</module>
+		<module>test</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

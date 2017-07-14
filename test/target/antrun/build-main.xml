@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <copy todir="C:\Work\project\ecc-plugins-actionbuilder\test\target">
+    <fileset dir="C:\Work\project\ecc-plugins-actionbuilder\test/src/main/resources">
+      <patternset id="data">
+        <include name="config/*.properties"/>
+        <include name="testdata/**/*"/>
+      </patternset>
+    </fileset>
+    <fileset dir="C:\Work\project\ecc-plugins-actionbuilder\test/src/main/resources/dev2pro">
+      <patternset id="docker">
+        <include name="Dockerfile"/>
+        <include name="start_test.sh"/>
+      </patternset>
+    </fileset>
+    <fileset dir="C:\Work\project\ecc-plugins-actionbuilder\test">
+      <patternset id="readme">
+        <include name="README.md"/>
+      </patternset>
+    </fileset>
+  </copy>
+</target>
+</project>
