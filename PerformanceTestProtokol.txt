@@ -1,0 +1,26 @@
+Messzeit der Messaufgaben
+
+Mit Oliver B
+direkt Webservice
+Configuratin 25 Messaufgaben
+gleiche Ausgangspunkt für alle
+in Puffer kommen, bearbeiten wert, gespeichert Zeit
+
+Testsset denfinieren
+Entdecken Wie viele Male wiederholung
+2 PL, PL
+2. PL laufen langzeit
+
+
+Datenherunterladen
+=> Mit Entwicklern sprechen: backup machen, 
+Messprozess ist stoppt in Datenherunterladen
+wie Datenherunterladen laufen? Einflusse Server und Datenbank? Test denfinieren
+Simple machen anfanngs, stück an stuck
+
+
+Firmwareaktualisierung
+
+
+
+
