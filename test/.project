@@ -1,23 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>webui-plugin-actionbuilder-test</name>
+	<name>test-environment</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>org.python.pydev.PyDevBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<name>org.robotframework.ide.eclipse.main.plugin.robotLibrariesBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+		<nature>org.python.pydev.pythonNature</nature>
+		<nature>org.robotframework.ide.eclipse.main.plugin.robotNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>libspecs/BuiltIn.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/BuiltIn.py</location>
+		</link>
+		<link>
+			<name>libspecs/Collections.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/Collections.py</location>
+		</link>
+		<link>
+			<name>libspecs/DateTime.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/DateTime.py</location>
+		</link>
+		<link>
+			<name>libspecs/DeviceLibrary.py</name>
+			<type>1</type>
+			<location>C:/devtools/Python27/Lib/site-packages/DeviceLibrary/library.py</location>
+		</link>
+		<link>
+			<name>libspecs/LocalizationLibrary.py</name>
+			<type>1</type>
+			<location>C:/devtools/Python27/Lib/site-packages/LocalizationLibrary/library.py</location>
+		</link>
+		<link>
+			<name>libspecs/NumericLibrary.py</name>
+			<type>1</type>
+			<location>C:/devtools/Python27/Lib/site-packages/NumericLibrary/library.py</location>
+		</link>
+		<link>
+			<name>libspecs/OpcLibrary.py</name>
+			<type>1</type>
+			<location>C:/projekte/robot/lib-sources/python/OPCLibrary/src/OpcLibrary/library.py</location>
+		</link>
+		<link>
+			<name>libspecs/OperatingSystem.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/OperatingSystem.py</location>
+		</link>
+		<link>
+			<name>libspecs/Remote.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/Remote.py</location>
+		</link>
+		<link>
+			<name>libspecs/RequestsLibrary.py</name>
+			<type>1</type>
+			<location>C:/devtools/Python27/Lib/site-packages/RequestsLibrary/RequestsKeywords.py</location>
+		</link>
+		<link>
+			<name>libspecs/String.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/String.py</location>
+		</link>
+		<link>
+			<name>libspecs/XML.py</name>
+			<type>1</type>
+			<location>C:/devtools/Jython2.7.0/Lib/site-packages/robot/libraries/XML.py</location>
+		</link>
+	</linkedResources>
 </projectDescription>

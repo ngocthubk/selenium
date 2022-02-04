@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projectConfiguration>
+    <configVersion>2</configVersion>
+    <robotExecEnvironment path="C:/devtools/Jython2.7.0/bin" interpreter="Jython"/>
+    <relativeTo>WORKSPACE</relativeTo>
+    <referencedLibrary type="VIRTUAL" name="ImageLibrary.xml" path="C:/projekte/robot/lib/image/ImageLibrary-DOC/ImageLibrary.xml"/>
+    <referencedLibrary type="VIRTUAL" name="SmartgwtLibrary.xml" path="C:/projekte/robot/lib/smartgwt/SmartgwtLibrary-DOC/SmartgwtLibrary.xml"/>
+    <referencedLibrary type="VIRTUAL" name="SCPLibraryJava.xml" path="C:/projekte/robot/lib/ssh/ScpLibrary-DOC/SCPLibraryJava.xml"/>
+    <referencedLibrary type="PYTHON" name="SSHLibrary" path="C:/devtools/Python27/Lib/site-packages/SSHLibrary"/>
+    <referencedLibrary type="PYTHON" name="RequestsLibrary" path="C:/devtools/Python27/Lib/site-packages/RequestsLibrary"/>
+    <referencedLibrary type="PYTHON" name="MTOMLibrary" path="C:/devtools/Python27/Lib/site-packages/MTOMLibrary"/>
+    <referencedLibrary type="PYTHON" name="NumericLibrary" path="C:/devtools/Python27/Lib/site-packages/NumericLibrary"/>
+    <referencedLibrary type="PYTHON" name="GzipLibrary" path="C:/devtools/Python27/Lib/site-packages/GzipLibrary"/>
+    <referencedLibrary type="PYTHON" name="CustomDialogsLibrary" path="C:/devtools/Python27/Lib/site-packages/CustomDialogsLibrary"/>
+    <referencedLibrary type="PYTHON" name="FtpLibrary" path="C:/devtools/Python27/Lib/site-packages/FtpLibrary.py"/>
+    <referencedLibrary type="PYTHON" name="Rammbock" path="C:/devtools/Python27/Lib/site-packages/Rammbock/Rammbock.py"/>
+    <referencedLibrary type="PYTHON" name="LocalizationLibrary" path="C:/devtools/Python27/Lib/site-packages/LocalizationLibrary"/>
+    <referencedLibrary type="PYTHON" name="DeviceLibrary" path="C:/devtools/Python27/Lib/site-packages/DeviceLibrary"/>
+    <referencedLibrary type="VIRTUAL" name="McSimulatorLibrary.xml" path="C:/projekte/robot/lib/mcsimulator/McSimulatorLibrary-DOC/McSimulatorLibrary.xml"/>
+    <referencedLibrary type="VIRTUAL" name="OpenCVLibrary.xml" path="C:/projekte/robot/lib-sources/python/OpenCVLibrary/OpenCVLibrary.xml"/>
+    <referencedLibrary type="PYTHON" name="CommonSCPLibrary" path="C:/devtools/Python27/Lib/site-packages/CommonSCPLibrary/__init__.py"/>
+    <referencedLibrary type="PYTHON" name="OpcLibrary" path="C:/projekte/robot/lib-sources/python/OPCLibrary/src/OpcLibrary/__init__.py"/>
+    <pythonpath>
+        <path location="C:\devtools\Python27\Lib\site-packages"/>
+        <path location="C:\devtools\Python27\Lib\site-packages\robot"/>
+        <path location="C:\projekte\robot\lib-sources\python\"/>
+    </pythonpath>
+    <classpath>
+        <path location="C:\devtools\Python27\Lib\site-packages"/>
+        <path location="C:\devtools\Python27\Lib\site-packages\robot"/>
+        <path location="C:\projekte\robot\lib\ssh\trilead-ssh2-1.0.0-build217.jar"/>
+        <path location="C:\projekte\robot\lib\ssh\robotframework-scplibrary-java-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+        <path location="C:\projekte\robot\lib\smartgwt\robotframework-smartgwtlibrary-3.0.4-jar-with-dependencies.jar"/>
+        <path location="C:\projekte\robot\lib\image\robotframework-imagelibrary-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+        <path location="C:\projekte\robot\lib\opencv-java\opencv-310.jar"/>
+        <path location="C:\projekte\robot\lib\variables"/>
+        <path location="C:\projekte\robot\lib\mcsimulator\robotframework-mcsimulatorlibrary-0.0.1-jar-with-dependencies.jar"/>
+    </classpath>
+    <remoteLocations uri="http://127.0.0.1:8271/SmartUtilityLibrary/SmartUtilitySettingsKeywords"/>
+    <remoteLocations uri="http://127.0.0.1:8271/SmartUtilityLibrary/SmartUtilityGlobalizationKeywords"/>
+    <remoteLocations uri="http://127.0.0.1:8271/WhiteRobotLibrary/SmartUtilityWhiteKeywords"/>
+    <remoteLocations uri="http://127.0.0.1:8271/WhiteRobotLibrary/LocatorsBuilderKeywords"/>
+    <remoteLocations uri="http://127.0.0.1:8271/ProcessLibrary/ProcessKeywords"/>
+    <remoteLocations uri="http://127.0.0.1:8271/WhiteRobotLibrary/WhiteKeywords"/>
+    <remoteLocations uri="http://127.0.0.1:8271/FileSystemLibrary/FileSystemKeywords"/>
+    <excludedForValidation/>
+    <isValidatedFileSizeCheckingEnabled>true</isValidatedFileSizeCheckingEnabled>
+    <validatedFileMaxSize>1024</validatedFileMaxSize>
+</projectConfiguration>
